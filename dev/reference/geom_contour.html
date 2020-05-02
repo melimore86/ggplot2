@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>2d contours of a 3d surface — geom_contour • ggplot2</title>
+<title>2D contours of a 3D surface — geom_contour • ggplot2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -17,22 +17,26 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -40,15 +44,21 @@
 <link href="../tidyverse-2.css" rel="stylesheet">
 
 
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
-<meta property="og:title" content="2d contours of a 3d surface — geom_contour" />
-<meta property="og:description" content="ggplot2 can not draw true 3d surfaces, but you can use geom_contour
-and geom_tile() to visualise 3d surfaces in 2d. To be a valid
-surface, the data must contain only a single row for each unique combination
-of the variables mapped to the x and y aesthetics. Contouring
+
+<meta property="og:title" content="2D contours of a 3D surface — geom_contour" />
+<meta property="og:description" content="ggplot2 can not draw true 3D surfaces, but you can use geom_contour(),
+geom_contour_filled(), and geom_tile() to visualise 3D surfaces in 2D.
+To specify a valid surface, the data must contain x, y, and z coordinates,
+and each unique combination of x and y can appear exactly once. Contouring
 tends to work best when x and y form a (roughly) evenly
 spaced grid. If your data is not evenly spaced, you may want to interpolate
-to a grid before visualising." />
+to a grid before visualising, see geom_density_2d()." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -76,7 +86,7 @@ to a grid before visualising." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -91,7 +101,7 @@ to a grid before visualising." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">ggplot2</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
           <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.0.9000</span>
         </div>
@@ -104,33 +114,15 @@ to a grid before visualising." />
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
-    </li>
-    <li>
-      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
-    </li>
-    <li>
-      <a href="../articles/profiling.html">Profiling Performance</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     News
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
+    </li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
     </li>
@@ -154,20 +146,47 @@ to a grid before visualising." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/extending-ggplot2.html">Extending ggplot2</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-in-packages.html">Using ggplot2 in packages</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot2-specs.html">Aesthetic specifications</a>
+    </li>
+    <li>
+      <a href="../articles/profiling.html">Profiling Performance</a>
     </li>
   </ul>
 </li>
         <li>
-  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
+  <a href="https://exts.ggplot2.tidyverse.org/gallery/">Extensions</a>
 </li>
 <li>
-  <a href="https://github.com/tidyverse/ggplot2">
+  <a href="https://github.com/tidyverse/ggplot2/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -180,19 +199,19 @@ to a grid before visualising." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>2d contours of a 3d surface</h1>
+    <h1>2D contours of a 3D surface</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/geom-contour.r'><code>R/geom-contour.r</code></a>, <a href='https://github.com/tidyverse/ggplot2/blob/master/R/stat-contour.r'><code>R/stat-contour.r</code></a></small>
     <div class="hidden name"><code>geom_contour.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>ggplot2 can not draw true 3d surfaces, but you can use <code>geom_contour</code>
-and <code><a href='geom_tile.html'>geom_tile()</a></code> to visualise 3d surfaces in 2d. To be a valid
-surface, the data must contain only a single row for each unique combination
-of the variables mapped to the <code>x</code> and <code>y</code> aesthetics. Contouring
+    <p>ggplot2 can not draw true 3D surfaces, but you can use <code>geom_contour()</code>,
+<code>geom_contour_filled()</code>, and <code><a href='geom_tile.html'>geom_tile()</a></code> to visualise 3D surfaces in 2D.
+To specify a valid surface, the data must contain <code>x</code>, <code>y</code>, and <code>z</code> coordinates,
+and each unique combination of <code>x</code> and <code>y</code> can appear exactly once. Contouring
 tends to work best when <code>x</code> and <code>y</code> form a (roughly) evenly
 spaced grid. If your data is not evenly spaced, you may want to interpolate
-to a grid before visualising.</p>
+to a grid before visualising, see <code><a href='geom_density_2d.html'>geom_density_2d()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>geom_contour</span>(
@@ -243,7 +262,7 @@ to a grid before visualising.</p>
 <span class='fu'>stat_contour_filled</span>(
   <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"polygon"</span>,
+  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"contour_filled"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='no'>...</span>,
   <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -362,6 +381,18 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <li><p><code>weight</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
 
+<p><code>geom_contour_filled()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<li><p><strong><code>x</code></strong></p></li>
+<li><p><strong><code>y</code></strong></p></li>
+<li><p><code>alpha</code></p></li>
+<li><p><code>colour</code></p></li>
+<li><p><code>fill</code></p></li>
+<li><p><code>group</code></p></li>
+<li><p><code>linetype</code></p></li>
+<li><p><code>size</code></p></li>
+<li><p><code>subgroup</code></p></li>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
+
 <p><code>stat_contour()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong><code>x</code></strong></p></li>
 <li><p><strong><code>y</code></strong></p></li>
@@ -369,14 +400,31 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <li><p><code>group</code></p></li>
 <li><p><code>order</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
+
+<p><code>stat_contour_filled()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
+<li><p><strong><code>x</code></strong></p></li>
+<li><p><strong><code>y</code></strong></p></li>
+<li><p><strong><code>z</code></strong></p></li>
+<li><p><code>fill</code></p></li>
+<li><p><code>group</code></p></li>
+<li><p><code>order</code></p></li>
+</ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
 
-<dl class='dl-horizontal'>
-<dt>level</dt><dd><p>height of contour</p></dd>
-<dt>nlevel</dt><dd><p>height of contour, scaled to maximum of 1</p></dd>
-<dt>piece</dt><dd><p>contour piece (an integer)</p></dd>
+<p>The computed variables differ somewhat for contour lines (computed by
+<code>stat_contour()</code>) and contour bands (filled contours, computed by <code>stat_contour_filled()</code>).
+The variables <code>nlevel</code> and <code>piece</code> are available for both, whereas <code>level_low</code>, <code>level_high</code>,
+and <code>level_mid</code> are only available for bands. The variable <code>level</code> is a numeric or a factor
+depending on whether lines or bands are calculated.</p><dl>
+<dt><code>level</code></dt><dd><p>Height of contour. For contour lines, this is numeric vector that
+represents bin boundaries. For contour bands, this is an ordered factor that
+represents bin ranges.</p></dd>
+<dt><code>level_low</code>, <code>level_high</code>, <code>level_mid</code></dt><dd><p>(contour bands only) Lower and upper
+bin boundaries for each band, as well the mid point between the boundaries.</p></dd>
+<dt><code>nlevel</code></dt><dd><p>Height of contour, scaled to maximum of 1.</p></dd>
+<dt><code>piece</code></dt><dd><p>Contour piece (an integer).</p></dd>
 
 </dl>
 
@@ -385,7 +433,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     <div class='dont-index'><p><code><a href='geom_density_2d.html'>geom_density_2d()</a></code>: 2d density contours</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>#' # Basic plot</span>
+    <pre class="examples"><div class='input'><span class='co'># Basic plot</span>
 <span class='no'>v</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>waiting</span>, <span class='no'>eruptions</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>density</span>))
 <span class='no'>v</span> + <span class='fu'>geom_contour</span>()</div><div class='img'><img src='geom_contour-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or compute from raw data</span>
@@ -395,7 +443,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <span class='co'># use geom_contour_filled() for filled contours</span>
 <span class='no'>v</span> + <span class='fu'>geom_contour_filled</span>()</div><div class='img'><img src='geom_contour-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Setting bins creates evenly spaced contours in the range of the data</span>
-<span class='no'>v</span> + <span class='fu'>geom_contour</span>(<span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='geom_contour-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>geom_contour</span>(<span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='img'><img src='geom_contour-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>v</span> + <span class='fu'>geom_contour</span>(<span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='img'><img src='geom_contour-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>geom_contour</span>(<span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='img'><img src='geom_contour-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Setting binwidth does the same thing, parameterised by the distance</span>
 <span class='co'># between contours</span>
 <span class='no'>v</span> + <span class='fu'>geom_contour</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)</div><div class='img'><img src='geom_contour-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>geom_contour</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>0.001</span>)</div><div class='img'><img src='geom_contour-7.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -404,16 +452,10 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
   <span class='fu'>geom_contour</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"white"</span>)</div><div class='img'><img src='geom_contour-10.png' alt='' width='700' height='433' /></div><div class='input'># }
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#aesthetics">Aesthetics</a></li>
-      <li><a href="#computed-variables">Computed variables</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -425,7 +467,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -434,6 +476,23 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'e1261f3df95d2d4704c626ff11a4b536',
+    indexName: 'tidyverse_ggplot2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>
